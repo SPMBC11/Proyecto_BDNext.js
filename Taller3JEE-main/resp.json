@@ -1,0 +1,1 @@
+{"path":"/taller3jee/api/v1/estudiantes","error":"Bad Request","message":"JSON parse error: Unexpected character ('e' (code 101)): was expecting double-quote to start field name","timestamp":"2026-04-24T21:34:28.5118905","status":400}

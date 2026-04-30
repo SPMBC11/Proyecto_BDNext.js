@@ -1,0 +1,55 @@
+# Maven
+target/
+*.jar
+*.war
+*.zip
+*.tar.gz
+pom.xml.tag
+pom.xml.releaseBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.maven.metadata.xml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+*.iws
+
+# Build
+.classpath
+.project
+.settings/
+.gradle/
+build/
+dist/
+
+# Logs
+logs/
+*.log
+log.txt
+
+# Database
+*.db
+*.h2.db
+derby.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+Thumbs.db
+.idea
+.classpath
+.factorypath
+
+# Node (if any)
+node_modules/
+npm-debug.log

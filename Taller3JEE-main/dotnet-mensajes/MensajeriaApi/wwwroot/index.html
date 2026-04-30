@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard de Mensajes</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f6f7fb; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .card { background: #fff; border-radius: 12px; padding: 1rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px; border-bottom: 1px solid #ddd; text-align: left; }
+    h1, h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Estadísticas de Mensajes por Tipo</h1>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Resumen</h2>
+        <p><strong>Total mensajes:</strong> <span id="totalMensajes">0</span></p>
+        <p><strong>Enviados hoy:</strong> <span id="enviadosHoy">0</span></p>
+        <p><strong>Usuarios simulados:</strong> <span id="totalUsuarios">0</span></p>
+        <button id="simularBtn">Simular actividad</button>
+        <p id="estadoSimulacion"></p>
+      </div>
+
+      <div class="card">
+        <h2>Distribución por tipo</h2>
+        <canvas id="chartTipos"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Detalle</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Porcentaje</th>
+          </tr>
+        </thead>
+        <tbody id="tablaTipos"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Ultimos mensajes</h2>
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Destinatario</th><th>Tipo</th><th>Asunto</th></tr>
+        </thead>
+        <tbody id="tablaMensajes"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function cargarDashboard() {
+      const [resumenResp, statsResp] = await Promise.all([
+        fetch('/api/estadisticas/resumen'),
+        fetch('/api/estadisticas/tipo')
+      ]);
+
+      const resumen = await resumenResp.json();
+      const stats = await statsResp.json();
+
+      document.getElementById('totalMensajes').textContent = resumen.totalMensajes ?? 0;
+      document.getElementById('enviadosHoy').textContent = resumen.enviadosHoy ?? 0;
+      document.getElementById('totalUsuarios').textContent = resumen.totalUsuarios ?? 0;
+
+      const tbody = document.getElementById('tablaTipos');
+      tbody.innerHTML = '';
+      stats.forEach(s => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${s.tipo}</td><td>${s.cantidad}</td><td>${s.porcentaje}%</td>`;
+        tbody.appendChild(row);
+      });
+
+      const labels = stats.map(s => s.tipo);
+      const data = stats.map(s => s.cantidad);
+
+      new Chart(document.getElementById('chartTipos'), {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
+          }]
+        }
+      });
+
+      const mensajesResp = await fetch('/api/mensajes');
+      const mensajes = await mensajesResp.json();
+      const tbodyMensajes = document.getElementById('tablaMensajes');
+      tbodyMensajes.innerHTML = '';
+      mensajes.slice(0, 12).forEach(m => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${new Date(m.fechaEnvio).toLocaleString()}</td><td>${m.destinatario}</td><td>${m.tipo}</td><td>${m.asunto}</td>`;
+        tbodyMensajes.appendChild(row);
+      });
+    }
+
+    async function simularActividad() {
+      const resp = await fetch('/api/simulacion/ejecutar?cantidadMensajes=5', { method: 'POST' });
+      const data = await resp.json();
+      document.getElementById('estadoSimulacion').textContent =
+        `Simulacion ejecutada: ${data.mensajesGenerados} mensajes${data.usuarioCreado ? ' y 1 usuario nuevo.' : '.'}`;
+      await cargarDashboard();
+    }
+
+    document.getElementById('simularBtn').addEventListener('click', simularActividad);
+    cargarDashboard();
+    setInterval(cargarDashboard, 7000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,634 @@
+{
+  "temas": [
+    {
+      "id": 1,
+      "titulo": "Introducción a Estructuras de Datos",
+      "descripcion": "Conceptos básicos y clasificación de estructuras de datos",
+      "tipo": "TEORICA",
+      "numeroOrden": 1,
+      "objetivos": "Entender qué son las estructuras de datos y su importancia en la programación",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 2,
+      "titulo": "Instalación de herramientas para E.D.",
+      "descripcion": "Configuración del entorno de desarrollo",
+      "tipo": "PRACTICA",
+      "numeroOrden": 2,
+      "objetivos": "Preparar el entorno para trabajar con estructuras de datos",
+      "duracionEstimada": 30
+    },
+    {
+      "id": 3,
+      "titulo": "Arrays y Listas",
+      "descripcion": "Fundamentos de arrays dinámicos y listas enlazadas",
+      "tipo": "TEORICA",
+      "numeroOrden": 3,
+      "objetivos": "Comprendre la diferencia entre arrays estáticos y dinámicos",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 4,
+      "titulo": "Implementación de Arrays",
+      "descripcion": "Práctica de implementación de arrays simples y bidimensionales",
+      "tipo": "PRACTICA",
+      "numeroOrden": 4,
+      "objetivos": "Crear arrays y manipular sus elementos correctamente",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 5,
+      "titulo": "Listas Enlazadas",
+      "descripcion": "Concepto y tipos de listas enlazadas",
+      "tipo": "TEORICA",
+      "numeroOrden": 5,
+      "objetivos": "Entender la estructura de listas enlazadas simples, dobles y circulares",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 6,
+      "titulo": "Implementación de Listas Enlazadas",
+      "descripcion": "Codificar listas enlazadas con sus operaciones básicas",
+      "tipo": "PRACTICA",
+      "numeroOrden": 6,
+      "objetivos": "Implementar inserción, eliminación y búsqueda en listas enlazadas",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 7,
+      "titulo": "Pilas y Colas",
+      "descripcion": "Estructuras LIFO y FIFO",
+      "tipo": "TEORICA",
+      "numeroOrden": 7,
+      "objetivos": "Diferenciar entre pilas y colas, y sus aplicaciones",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 8,
+      "titulo": "Implementación de Pilas",
+      "descripcion": "Crear y manipular pilas",
+      "tipo": "PRACTICA",
+      "numeroOrden": 8,
+      "objetivos": "Implementar operaciones push y pop en pilas",
+      "duracionEstimada": 40
+    },
+    {
+      "id": 9,
+      "titulo": "Implementación de Colas",
+      "descripcion": "Crear y manipular colas",
+      "tipo": "PRACTICA",
+      "numeroOrden": 9,
+      "objetivos": "Implementar operaciones enqueue y dequeue",
+      "duracionEstimada": 40
+    },
+    {
+      "id": 10,
+      "titulo": "Árboles Binarios",
+      "descripcion": "Concepto de árboles y árboles binarios",
+      "tipo": "TEORICA",
+      "numeroOrden": 10,
+      "objetivos": "Comprender la estructura y propiedades de árboles binarios",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 11,
+      "titulo": "Recorridos de Árboles",
+      "descripcion": "Recorridos InOrder, PreOrder y PostOrder",
+      "tipo": "TEORICA",
+      "numeroOrden": 11,
+      "objetivos": "Dominar los diferentes tipos de recorridos en árboles",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 12,
+      "titulo": "Implementación de Árboles Binarios",
+      "descripcion": "Codificar árboles binarios y sus operaciones",
+      "tipo": "PRACTICA",
+      "numeroOrden": 12,
+      "objetivos": "Crear nodos, insertar y buscar en árboles binarios",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 13,
+      "titulo": "Árboles Binarios de Búsqueda",
+      "descripcion": "BST y propiedades",
+      "tipo": "TEORICA",
+      "numeroOrden": 13,
+      "objetivos": "Entender la estructura y ventajas de BST",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 14,
+      "titulo": "Implementación de BST",
+      "descripcion": "Inserción, búsqueda y eliminación en BST",
+      "tipo": "PRACTICA",
+      "numeroOrden": 14,
+      "objetivos": "Implementar todas las operaciones de un árbol de búsqueda binaria",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 15,
+      "titulo": "Árboles AVL",
+      "descripcion": "Balanceo automático de árboles",
+      "tipo": "TEORICA",
+      "numeroOrden": 15,
+      "objetivos": "Comprender los árboles AVL y sus rotaciones",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 16,
+      "titulo": "Implementación de Árboles AVL",
+      "descripcion": "Implementar rotaciones y balanceo",
+      "tipo": "PRACTICA",
+      "numeroOrden": 16,
+      "objetivos": "Crear un árbol AVL con sus operaciones de balanceo",
+      "duracionEstimada": 120
+    },
+    {
+      "id": 17,
+      "titulo": "Tablas Hash",
+      "descripcion": "Concepto de elementos clave-valor",
+      "tipo": "TEORICA",
+      "numeroOrden": 17,
+      "objetivos": "Entender hashing, colisiones y funciones hash",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 18,
+      "titulo": "Implementación de Tablas Hash",
+      "descripcion": "Codificar hash tables con resolución de colisiones",
+      "tipo": "PRACTICA",
+      "numeroOrden": 18,
+      "objetivos": "Implementar inserción, búsqueda y eliminación con colisiones",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 19,
+      "titulo": "Grafos",
+      "descripcion": "Concepto de grafos y representaciones",
+      "tipo": "TEORICA",
+      "numeroOrden": 19,
+      "objetivos": "Entender grafos, vértices, aristas y tipos de grafos",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 20,
+      "titulo": "Representaciones de Grafos",
+      "descripcion": "Matriz de adyacencia y lista de adyacencia",
+      "tipo": "PRACTICA",
+      "numeroOrden": 20,
+      "objetivos": "Implementar diferentes representaciones de grafos",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 21,
+      "titulo": "Recorridos en Grafos",
+      "descripcion": "BFS y DFS en grafos",
+      "tipo": "TEORICA",
+      "numeroOrden": 21,
+      "objetivos": "Aprender búsquedas en anchura y profundidad",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 22,
+      "titulo": "Implementación de BFS y DFS",
+      "descripcion": "Codificar recorridos en grafos",
+      "tipo": "PRACTICA",
+      "numeroOrden": 22,
+      "objetivos": "Implementar BFS y DFS de forma iterativa y recursiva",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 23,
+      "titulo": "Algoritmos de Ordenamiento",
+      "descripcion": "Concepto de ordenamiento y complejidad",
+      "tipo": "TEORICA",
+      "numeroOrden": 23,
+      "objetivos": "Entender la importancia de ordenamiento y análisis de complejidad",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 24,
+      "titulo": "Bubble Sort y Selection Sort",
+      "descripcion": "Algoritmos de ordenamiento simples",
+      "tipo": "PRACTICA",
+      "numeroOrden": 24,
+      "objetivos": "Implementar ordenamientos simples",
+      "duracionEstimada": 50
+    },
+    {
+      "id": 25,
+      "titulo": "Insertion Sort e Insertion Sort",
+      "descripcion": "Algoritmos de inserción",
+      "tipo": "PRACTICA",
+      "numeroOrden": 25,
+      "objetivos": "Implementar insertion sort",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 26,
+      "titulo": "Merge Sort",
+      "descripcion": "Algoritmo divide y conquista para ordenamiento",
+      "tipo": "TEORICA",
+      "numeroOrden": 26,
+      "objetivos": "Comprender merge sort y su complejidad O(n log n)",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 27,
+      "titulo": "Implementación de Merge Sort",
+      "descripcion": "Codificar merge sort",
+      "tipo": "PRACTICA",
+      "numeroOrden": 27,
+      "objetivos": "Implementar merge sort recursivamente",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 28,
+      "titulo": "Quick Sort",
+      "descripcion": "Algoritmo rápido de ordenamiento",
+      "tipo": "TEORICA",
+      "numeroOrden": 28,
+      "objetivos": "Entender quick sort y particionamiento",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 29,
+      "titulo": "Implementación de Quick Sort",
+      "descripcion": "Codificar quick sort",
+      "tipo": "PRACTICA",
+      "numeroOrden": 29,
+      "objetivos": "Implementar quick sort con diferentes estrategias de pivote",
+      "duracionEstimada": 70
+    },
+    {
+      "id": 30,
+      "titulo": "Heap Sort",
+      "descripcion": "Ordenamiento usando montículos",
+      "tipo": "TEORICA",
+      "numeroOrden": 30,
+      "objetivos": "Aprender heap sort y estructura de montículos",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 31,
+      "titulo": "Implementación de Heap Sort",
+      "descripcion": "Codificar heap sort",
+      "tipo": "PRACTICA",
+      "numeroOrden": 31,
+      "objetivos": "Implementar heap sort y operaciones de montículo",
+      "duracionEstimada": 70
+    },
+    {
+      "id": 32,
+      "titulo": "Análisis de Algoritmos de Ordenamiento",
+      "descripcion": "Comparación de complejidades",
+      "tipo": "TEORICA",
+      "numeroOrden": 32,
+      "objetivos": "Comparar complejidad temporal y espacial de ordenamientos",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 33,
+      "titulo": "Búsqueda Lineal y Binaria",
+      "descripcion": "Algoritmos de búsqueda",
+      "tipo": "TEORICA",
+      "numeroOrden": 33,
+      "objetivos": "Entender búsqueda lineal y binaria",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 34,
+      "titulo": "Implementación de Búsqueda",
+      "descripcion": "Codificar algoritmos de búsqueda",
+      "tipo": "PRACTICA",
+      "numeroOrden": 34,
+      "objetivos": "Implementar búsqueda lineal y binaria",
+      "duracionEstimada": 40
+    },
+    {
+      "id": 35,
+      "titulo": "Recursión",
+      "descripcion": "Concepto de recursión en programación",
+      "tipo": "TEORICA",
+      "numeroOrden": 35,
+      "objetivos": "Entender recursión, base case y casos recursivos",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 36,
+      "titulo": "Problemas Recursivos",
+      "descripcion": "Solución de problemas con recursión",
+      "tipo": "PRACTICA",
+      "numeroOrden": 36,
+      "objetivos": "Resolver problemas clásicos recursivos (factorial, Fibonacci, etc)",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 37,
+      "titulo": "Análisis de Complejidad Espacial",
+      "descripcion": "Medición del uso de memoria",
+      "tipo": "TEORICA",
+      "numeroOrden": 37,
+      "objetivos": "Entender notación Big O para espacio",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 38,
+      "titulo": "Optimización de Estructuras de Datos",
+      "descripcion": "Técnicas para optimizar uso de memoria",
+      "tipo": "PRACTICA",
+      "numeroOrden": 38,
+      "objetivos": "Implementar estructuras optimizadas en memoria",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 39,
+      "titulo": "Caminos Mínimos en Grafos",
+      "descripcion": "Algoritmo de Dijkstra",
+      "tipo": "TEORICA",
+      "numeroOrden": 39,
+      "objetivos": "Entender cálculo de caminos más cortos",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 40,
+      "titulo": "Implementación de Dijkstra",
+      "descripcion": "Codificar algoritmo de Dijkstra",
+      "tipo": "PRACTICA",
+      "numeroOrden": 40,
+      "objetivos": "Implementar Dijkstra con prioridad",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 41,
+      "titulo": "Floyd-Warshall",
+      "descripcion": "Caminos mínimos entre todos los pares",
+      "tipo": "TEORICA",
+      "numeroOrden": 41,
+      "objetivos": "Aprender Floyd-Warshall para multipares",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 42,
+      "titulo": "Implementación de Floyd-Warshall",
+      "descripcion": "Codificar Floyd-Warshall",
+      "tipo": "PRACTICA",
+      "numeroOrden": 42,
+      "objetivos": "Implementar Floyd-Warshall O(n³)",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 43,
+      "titulo": "Árbol de Extensión Mínima",
+      "descripcion": "Algoritmos MST",
+      "tipo": "TEORICA",
+      "numeroOrden": 43,
+      "objetivos": "Entender MST y sus aplicaciones",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 44,
+      "titulo": "Kruskal y Prim",
+      "descripcion": "Implementación de MST",
+      "tipo": "PRACTICA",
+      "numeroOrden": 44,
+      "objetivos": "Implementar Kruskal y Prim",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 45,
+      "titulo": "Programación Dinámica",
+      "descripcion": "Concepto de DP",
+      "tipo": "TEORICA",
+      "numeroOrden": 45,
+      "objetivos": "Entender subproblemas superpuestos y subestructura óptima",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 46,
+      "titulo": "Fibonacci Dinámico",
+      "descripcion": "Problema clásico de DP",
+      "tipo": "PRACTICA",
+      "numeroOrden": 46,
+      "objetivos": "Implementar Fibonacci con memoización",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 47,
+      "titulo": "Problema de Mochila",
+      "descripcion": "Knapsack problem",
+      "tipo": "TEORICA",
+      "numeroOrden": 47,
+      "objetivos": "Resolución del problema de mochila",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 48,
+      "titulo": "Implementación Knapsack",
+      "descripcion": "Codificar solución de mochila",
+      "tipo": "PRACTICA",
+      "numeroOrden": 48,
+      "objetivos": "Resolver 0/1 knapsack con DP",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 49,
+      "titulo": "Subsecuencia Común Máxima",
+      "descripcion": "LCS Algorithm",
+      "tipo": "TEORICA",
+      "numeroOrden": 49,
+      "objetivos": "Entender LCS y sus aplicaciones",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 50,
+      "titulo": "Implementación LCS",
+      "descripcion": "Codificar LCS",
+      "tipo": "PRACTICA",
+      "numeroOrden": 50,
+      "objetivos": "Implementar LCS con tabla DP",
+      "duracionEstimada": 70
+    },
+    {
+      "id": 51,
+      "titulo": "Distancia de Edición",
+      "descripcion": "Edit distance / Levenshtein",
+      "tipo": "TEORICA",
+      "numeroOrden": 51,
+      "objetivos": "Calcular distancia entre cadenas",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 52,
+      "titulo": "Implementación Edit Distance",
+      "descripcion": "Codificar distancia de edición",
+      "tipo": "PRACTICA",
+      "numeroOrden": 52,
+      "objetivos": "Implementar Levenshtein distance",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 53,
+      "titulo": "Algoritmos Greedy",
+      "descripcion": "Estrategia greedy",
+      "tipo": "TEORICA",
+      "numeroOrden": 53,
+      "objetivos": "Entender cuándo aplicar soluciones greedy",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 54,
+      "titulo": "Problemas Greedy",
+      "descripcion": "Problemas resolubles con greedy",
+      "tipo": "PRACTICA",
+      "numeroOrden": 54,
+      "objetivos": "Resolver problemas de cambio, actividades",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 55,
+      "titulo": "Backtracking",
+      "descripcion": "Técnica de búsqueda exhaustiva",
+      "tipo": "TEORICA",
+      "numeroOrden": 55,
+      "objetivos": "Entender backtracking y poda",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 56,
+      "titulo": "Problemas Backtracking",
+      "descripcion": "N-Reinas, Sudoku, Permutaciones",
+      "tipo": "PRACTICA",
+      "numeroOrden": 56,
+      "objetivos": "Resolver problemas clásicos con backtracking",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 57,
+      "titulo": "Tries y Sufijos",
+      "descripcion": "Estructuras para texto",
+      "tipo": "TEORICA",
+      "numeroOrden": 57,
+      "objetivos": "Aprender Tries y árboles de sufijos",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 58,
+      "titulo": "Implementación de Tries",
+      "descripcion": "Codificar Trie",
+      "tipo": "PRACTICA",
+      "numeroOrden": 58,
+      "objetivos": "Implementar Trie para búsqueda de prefijos",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 59,
+      "titulo": "Análisis de Problemas",
+      "descripcion": "Estrategias de resolución",
+      "tipo": "TEORICA",
+      "numeroOrden": 59,
+      "objetivos": "Aprender a analizar y resolver nuevos problemas",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 60,
+      "titulo": "Proyecto Integrador Parte 1",
+      "descripcion": "Aplicación que integra múltiples ED",
+      "tipo": "PRACTICA",
+      "numeroOrden": 60,
+      "objetivos": "Crear proyecto que use varias estructuras",
+      "duracionEstimada": 120
+    },
+    {
+      "id": 61,
+      "titulo": "Balance y Equilibrio",
+      "descripcion": "Estructuras auto-balanceables",
+      "tipo": "TEORICA",
+      "numeroOrden": 61,
+      "objetivos": "Revisión de árboles balanceables",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 62,
+      "titulo": "Implementación de Estructuras Avanzadas",
+      "descripcion": "Red-Black Trees, B-Trees",
+      "tipo": "PRACTICA",
+      "numeroOrden": 62,
+      "objetivos": "Implementar estructuras avanzadas",
+      "duracionEstimada": 120
+    },
+    {
+      "id": 63,
+      "titulo": "Memoria y Gestión",
+      "descripcion": "Manejo eficiente de memoria",
+      "tipo": "TEORICA",
+      "numeroOrden": 63,
+      "objetivos": "Entender gestión de memoria y garbage collection",
+      "duracionEstimada": 45
+    },
+    {
+      "id": 64,
+      "titulo": "Profiling y Optimización",
+      "descripcion": "Herramientas de profiling",
+      "tipo": "PRACTICA",
+      "numeroOrden": 64,
+      "objetivos": "Usar profilers para optimizar código",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 65,
+      "titulo": "Patrones de Diseño para Estructuras",
+      "descripcion": "Aplicar patrones en ED",
+      "tipo": "TEORICA",
+      "numeroOrden": 65,
+      "objetivos": "Usar patrones de diseño con estructuras",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 66,
+      "titulo": "Estructuras Genéricas",
+      "descripcion": "Generics en estructuras de datos",
+      "tipo": "PRACTICA",
+      "numeroOrden": 66,
+      "objetivos": "Crear estructuras genéricas y reutilizables",
+      "duracionEstimada": 75
+    },
+    {
+      "id": 67,
+      "titulo": "Proyecto Integrador Parte 2",
+      "descripcion": "Extensión y mejora del proyecto",
+      "tipo": "PRACTICA",
+      "numeroOrden": 67,
+      "objetivos": "Mejorar proyecto anterior con nuevas características",
+      "duracionEstimada": 120
+    },
+    {
+      "id": 68,
+      "titulo": "Competencias Algorítmicas",
+      "descripcion": "Problemas de programación competitiva",
+      "tipo": "PRACTICA",
+      "numeroOrden": 68,
+      "objetivos": "Resolver problemas de competencias",
+      "duracionEstimada": 90
+    },
+    {
+      "id": 69,
+      "titulo": "Revisión Final y Resúmenes",
+      "descripcion": "Consolidación de conocimientos",
+      "tipo": "TEORICA",
+      "numeroOrden": 69,
+      "objetivos": "Revisar conceptos clave del curso",
+      "duracionEstimada": 60
+    },
+    {
+      "id": 70,
+      "titulo": "Evaluación Final del Curso",
+      "descripcion": "Prueba integral de conocimientos",
+      "tipo": "PRACTICA",
+      "numeroOrden": 70,
+      "objetivos": "Demostrar dominio de estructuras de datos",
+      "duracionEstimada": 120
+    }
+  ]
+}

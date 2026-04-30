@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller3JEE - Datos del Curso</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+            line-height: 1.4;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            opacity: 0.8;
+            margin-top: 0;
+        }
+
+        .card {
+            border: 1px solid #9995;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .error {
+            color: #d00;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 18px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid #9998;
+            border-radius: 999px;
+            padding: 2px 10px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        input, button {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #9998;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Taller3JEE - Datos del Curso</h1>
+<p class="muted">Visualización simple de los datos existentes en la API.</p>
+
+<div class="card">
+    <h2>Total de temas</h2>
+    <p id="total">Cargando...</p>
+</div>
+
+<div class="card">
+    <h2>Lista de temas</h2>
+    <p id="estadoTemas">Cargando temas...</p>
+    <ul id="temas"></ul>
+</div>
+
+<div class="card">
+    <h2>Estudiantes</h2>
+    <div class="row">
+        <input id="nombre" type="text" placeholder="Nombre">
+        <input id="email" type="email" placeholder="Email">
+        <input id="matricula" type="text" placeholder="Matricula">
+        <button id="crearEstudianteBtn">Crear estudiante</button>
+    </div>
+    <p id="estadoEstudiantes">Cargando estudiantes...</p>
+    <ul id="estudiantes"></ul>
+</div>
+
+<div class="card">
+    <h2>Recomendacion de un estudiante</h2>
+    <div class="row">
+        <input id="estudianteIdRecomendacion" type="number" min="1" placeholder="ID de estudiante">
+        <button id="verRecomendacionBtn">Ver recomendacion</button>
+    </div>
+    <p id="estadoRecomendacion">Ingresa un ID para consultar.</p>
+    <div id="recomendacion"></div>
+</div>
+
+<div class="card">
+    <h2>Simulador de mensajes (.NET)</h2>
+    <div class="row">
+        <button id="simularMensajesBtn">Simular envio de mensajes</button>
+    </div>
+    <p id="estadoMensajeriaDotnet">Cargando datos de mensajeria...</p>
+    <p><strong>Total mensajes:</strong> <span id="dotnetTotalMensajes">0</span></p>
+    <p><strong>Enviados hoy:</strong> <span id="dotnetEnviadosHoy">0</span></p>
+    <p><strong>Usuarios simulados:</strong> <span id="dotnetUsuarios">0</span></p>
+    <ul id="dotnetTipos"></ul>
+</div>
+
+<div class="card">
+    <h2>Simulacion simultanea (usuarios + materias + recomendaciones)</h2>
+    <div class="row">
+        <input id="simUsuariosCantidad" type="number" min="1" max="10" value="3" placeholder="Usuarios">
+        <input id="simMateriasPorUsuario" type="number" min="1" max="10" value="3" placeholder="Materias por usuario">
+        <button id="simulacionCompletaBtn">Ejecutar simulacion simultanea</button>
+    </div>
+    <p id="estadoSimulacionCompleta">Configura y ejecuta la simulacion.</p>
+    <ul id="resultadoSimulacionCompleta"></ul>
+</div>
+
+<script>
+    const totalEl = document.getElementById("total");
+    const estadoTemasEl = document.getElementById("estadoTemas");
+    const temasEl = document.getElementById("temas");
+    const estadoEstudiantesEl = document.getElementById("estadoEstudiantes");
+    const estudiantesEl = document.getElementById("estudiantes");
+    const estadoRecomendacionEl = document.getElementById("estadoRecomendacion");
+    const recomendacionEl = document.getElementById("recomendacion");
+    const estadoMensajeriaDotnetEl = document.getElementById("estadoMensajeriaDotnet");
+    const dotnetTiposEl = document.getElementById("dotnetTipos");
+    const estadoSimulacionCompletaEl = document.getElementById("estadoSimulacionCompleta");
+    const resultadoSimulacionCompletaEl = document.getElementById("resultadoSimulacionCompleta");
+
+    function escapeHtml(text) {
+        return String(text ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    async function getJson(url, options) {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            let details = "";
+            try {
+                details = await response.text();
+            } catch (e) {
+                details = "";
+            }
+            throw new Error(`HTTP ${response.status}${details ? ` - ${details}` : ""}`);
+        }
+        return response.json();
+    }
+
+    async function cargarDatos() {
+        try {
+            const [total, temas, estudiantes] = await Promise.all([
+                getJson("/taller3jee/api/v1/cursos/total"),
+                getJson("/taller3jee/api/v1/cursos/temas"),
+                getJson("/taller3jee/api/v1/estudiantes")
+            ]);
+
+            totalEl.textContent = String(total);
+            estadoTemasEl.textContent = temas.length
+                ? `Se encontraron ${temas.length} temas.`
+                : "No hay temas disponibles.";
+
+            temasEl.innerHTML = "";
+
+            for (const tema of temas) {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <strong>${tema.numeroOrden}. ${tema.titulo ?? "Sin título"}</strong>
+                    <span class="badge">${tema.tipoTema ?? "N/A"}</span>
+                    <br>
+                    <small>${tema.descripcion ?? "Sin descripción"}</small>
+                `;
+                temasEl.appendChild(li);
+            }
+
+            estadoEstudiantesEl.textContent = estudiantes.length
+                ? `Hay ${estudiantes.length} estudiantes registrados.`
+                : "No hay estudiantes registrados.";
+
+            estudiantesEl.innerHTML = "";
+            for (const estudiante of estudiantes) {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <strong>ID ${estudiante.id} - ${escapeHtml(estudiante.nombre)}</strong>
+                    <span class="badge">${escapeHtml(estudiante.estado ?? "N/A")}</span>
+                    <br>
+                    <small>${escapeHtml(estudiante.email)} | Matricula: ${escapeHtml(estudiante.matricula ?? "N/A")}</small>
+                `;
+                estudiantesEl.appendChild(li);
+            }
+
+            if (estudiantes.length > 0) {
+                document.getElementById("estudianteIdRecomendacion").value = estudiantes[0].id;
+            }
+        } catch (error) {
+            totalEl.innerHTML = '<span class="error">Error cargando total</span>';
+            estadoTemasEl.innerHTML = `<span class="error">${error.message}</span>`;
+            estadoEstudiantesEl.innerHTML = `<span class="error">${error.message}</span>`;
+        }
+    }
+
+    async function crearEstudiante() {
+        const nombre = document.getElementById("nombre").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const matricula = document.getElementById("matricula").value.trim();
+
+        if (!nombre || !email || !matricula) {
+            estadoEstudiantesEl.innerHTML = '<span class="error">Completa nombre, email y matricula.</span>';
+            return;
+        }
+
+        try {
+            await getJson("/taller3jee/api/v1/estudiantes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, email, matricula })
+            });
+            estadoEstudiantesEl.textContent = "Estudiante creado correctamente.";
+            document.getElementById("nombre").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("matricula").value = "";
+            await cargarDatos();
+        } catch (error) {
+            estadoEstudiantesEl.innerHTML = `<span class="error">${error.message}</span>`;
+        }
+    }
+
+    async function verRecomendacion() {
+        const estudianteId = document.getElementById("estudianteIdRecomendacion").value.trim();
+        if (!estudianteId) {
+            estadoRecomendacionEl.innerHTML = '<span class="error">Ingresa un ID valido.</span>';
+            return;
+        }
+
+        try {
+            const recomendacion = await getJson(`/taller3jee/api/v1/recomendaciones/${estudianteId}`);
+            estadoRecomendacionEl.textContent = "Recomendacion obtenida.";
+            recomendacionEl.innerHTML = `
+                <p><strong>Tema recomendado:</strong> ${escapeHtml(recomendacion.temaRecomendadoTitulo ?? "N/A")}</p>
+                <p><strong>Tipo:</strong> ${escapeHtml(recomendacion.tipo ?? "N/A")}</p>
+                <p><strong>Razon:</strong> ${escapeHtml(recomendacion.razon ?? "Sin razon disponible")}</p>
+                <p><strong>Nivel de confianza:</strong> ${escapeHtml(recomendacion.nivelConfianza ?? "N/A")}</p>
+            `;
+        } catch (error) {
+            estadoRecomendacionEl.innerHTML = `<span class="error">${error.message}</span>`;
+            recomendacionEl.innerHTML = "";
+        }
+    }
+
+    async function cargarMensajeriaDotnet() {
+        try {
+            const [resumen, tipos] = await Promise.all([
+                getJson("http://localhost:5099/api/estadisticas/resumen"),
+                getJson("http://localhost:5099/api/estadisticas/tipo")
+            ]);
+
+            document.getElementById("dotnetTotalMensajes").textContent = resumen.totalMensajes ?? 0;
+            document.getElementById("dotnetEnviadosHoy").textContent = resumen.enviadosHoy ?? 0;
+            document.getElementById("dotnetUsuarios").textContent = resumen.totalUsuarios ?? 0;
+
+            dotnetTiposEl.innerHTML = "";
+            tipos.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.tipo}: ${item.cantidad} (${item.porcentaje}%)`;
+                dotnetTiposEl.appendChild(li);
+            });
+
+            estadoMensajeriaDotnetEl.textContent = "Mensajeria sincronizada correctamente con .NET.";
+        } catch (error) {
+            estadoMensajeriaDotnetEl.innerHTML = `<span class="error">No se pudo conectar a .NET (http://localhost:5099). ${error.message}</span>`;
+        }
+    }
+
+    async function simularMensajesDotnet() {
+        try {
+            await getJson("http://localhost:5099/api/simulacion/ejecutar?cantidadMensajes=5", {
+                method: "POST"
+            });
+            estadoMensajeriaDotnetEl.textContent = "Simulacion ejecutada en .NET.";
+            await cargarMensajeriaDotnet();
+        } catch (error) {
+            estadoMensajeriaDotnetEl.innerHTML = `<span class="error">${error.message}</span>`;
+        }
+    }
+
+    function mezclarArreglo(arreglo) {
+        const copia = [...arreglo];
+        for (let i = copia.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copia[i], copia[j]] = [copia[j], copia[i]];
+        }
+        return copia;
+    }
+
+    async function simularUsuarioConMaterias(temas, materiasPorUsuario, indice) {
+        const now = Date.now();
+        const estudiantePayload = {
+            nombre: `SimUser ${indice + 1} - ${now}`,
+            email: `simuser${indice + 1}_${now}@demo.local`,
+            matricula: `SIM-${now}-${indice + 1}`
+        };
+
+        const estudiante = await getJson("/taller3jee/api/v1/estudiantes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(estudiantePayload)
+        });
+
+        const temasUnicos = mezclarArreglo(temas).slice(0, materiasPorUsuario);
+        const resultadosMaterias = await Promise.all(
+            temasUnicos.map(t =>
+                getJson("/taller3jee/api/v1/simulacion/ejercicio", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ estudianteId: estudiante.id, temaId: t.id })
+                })
+            )
+        );
+
+        const recomendacion = await getJson(`/taller3jee/api/v1/recomendaciones/${estudiante.id}`);
+
+        return {
+            estudiante,
+            temas: temasUnicos,
+            resultadosMaterias,
+            recomendacion
+        };
+    }
+
+    async function simulacionCompleta() {
+        const usuariosCantidad = Number(document.getElementById("simUsuariosCantidad").value || "0");
+        const materiasPorUsuario = Number(document.getElementById("simMateriasPorUsuario").value || "0");
+
+        if (usuariosCantidad < 1 || materiasPorUsuario < 1) {
+            estadoSimulacionCompletaEl.innerHTML = '<span class="error">Cantidad de usuarios y materias debe ser mayor a 0.</span>';
+            return;
+        }
+
+        try {
+            estadoSimulacionCompletaEl.textContent = "Ejecutando simulacion simultanea...";
+            resultadoSimulacionCompletaEl.innerHTML = "";
+
+            const temas = await getJson("/taller3jee/api/v1/cursos/temas");
+            if (!temas.length) {
+                estadoSimulacionCompletaEl.innerHTML = '<span class="error">No hay materias disponibles.</span>';
+                return;
+            }
+
+            const materiasAUsar = Math.min(materiasPorUsuario, temas.length);
+
+            const simulacionesUsuariosPromise = Promise.all(
+                Array.from({ length: usuariosCantidad }, (_, idx) =>
+                    simularUsuarioConMaterias(temas, materiasAUsar, idx)
+                )
+            );
+
+            const simulacionMensajesPromise = getJson(
+                `http://localhost:5099/api/simulacion/ejecutar?cantidadMensajes=${Math.max(usuariosCantidad * materiasAUsar, 3)}`,
+                { method: "POST" }
+            ).catch(() => null);
+
+            const [simulacionesUsuarios, simulacionMensajes] = await Promise.all([
+                simulacionesUsuariosPromise,
+                simulacionMensajesPromise
+            ]);
+
+            for (const item of simulacionesUsuarios) {
+                const li = document.createElement("li");
+                const materiasTexto = item.temas.map(t => `${t.numeroOrden}. ${t.titulo}`).join(" | ");
+                li.innerHTML = `
+                    <strong>${escapeHtml(item.estudiante.nombre)} (ID ${item.estudiante.id})</strong><br>
+                    <small>Materias simuladas (sin repetir): ${escapeHtml(materiasTexto)}</small><br>
+                    <small>Recomendacion: ${escapeHtml(item.recomendacion.tipo ?? "N/A")} - ${escapeHtml(item.recomendacion.temaRecomendadoTitulo ?? "Sin tema")}</small>
+                `;
+                resultadoSimulacionCompletaEl.appendChild(li);
+            }
+
+            const estadoMensajes = simulacionMensajes
+                ? `Mensajeria .NET: ${simulacionMensajes.mensajesGenerados ?? 0} mensajes generados.`
+                : "Mensajeria .NET no disponible en este momento.";
+            estadoSimulacionCompletaEl.textContent = `Simulacion completada para ${simulacionesUsuarios.length} usuarios. ${estadoMensajes}`;
+
+            await Promise.all([cargarDatos(), cargarMensajeriaDotnet()]);
+        } catch (error) {
+            estadoSimulacionCompletaEl.innerHTML = `<span class="error">${error.message}</span>`;
+        }
+    }
+
+    document.getElementById("crearEstudianteBtn").addEventListener("click", crearEstudiante);
+    document.getElementById("verRecomendacionBtn").addEventListener("click", verRecomendacion);
+    document.getElementById("simularMensajesBtn").addEventListener("click", simularMensajesDotnet);
+    document.getElementById("simulacionCompletaBtn").addEventListener("click", simulacionCompleta);
+
+    cargarDatos();
+    cargarMensajeriaDotnet();
+    setInterval(cargarMensajeriaDotnet, 7000);
+</script>
+</body>
+</html>
