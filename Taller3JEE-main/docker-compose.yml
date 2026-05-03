@@ -1,0 +1,92 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - mens-net
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: mensajeria_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mensajeria_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - mens-net
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - mens-net
+
+  jee-publisher:
+    build:
+      context: ./jee-publisher
+      dockerfile: Dockerfile
+    ports:
+      # 8080 lo usa Spring Boot (taller3jee); el publisher JAX-RS queda en 8081
+      - "8081:8080"
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_QUEUE: mensajes_correo
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - mens-net
+
+  mensajeria-worker:
+    build:
+      context: .
+      dockerfile: MensajeriaNet.Worker/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      DOTNET_ENVIRONMENT: Development
+    networks:
+      - mens-net
+
+  mensajeria-api:
+    build:
+      context: .
+      dockerfile: MensajeriaNet.Api/Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      # En contenedor debe usarse appsettings.json (Host=rabbitmq), no Development (localhost).
+      ASPNETCORE_ENVIRONMENT: Production
+    networks:
+      - mens-net
+
+networks:
+  mens-net:
+    driver: bridge
