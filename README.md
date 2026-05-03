@@ -64,6 +64,17 @@ Una vez que todos los servicios hayan iniciado, puedes acceder a:
 - **Panel RabbitMQ**: [http://localhost:15672](http://localhost:15672) (guest / guest)
 - **Mailpit (Correos simulados)**: [http://localhost:8025](http://localhost:8025)
 
+## Dashboard de Estadísticas de Mensajería
+
+El proyecto incluye un panel de control interactivo para visualizar la integración con el servicio de mensajería **.NET**. Entre sus características principales se encuentran:
+
+- **Distribución de mensajes**: Visualización en tiempo real de estadísticas resumidas agrupadas por **Tipo** (Notificación, Alerta, Confirmación, Reporte) y su **Estado** (Pendiente, Enviado, Fallido), conectándose a `/api/estadisticas`.
+- **Últimos mensajes**: Un listado actualizado de los mensajes procesados, donde se detalla la fecha, el destinatario, el tipo de mensaje y el asunto, trayendo los datos directamente desde `/api/mensajes`.
+- **Acciones rápidas**: Funcionalidad para probar flujos completos, como simular envíos o aplicar filtros por categorías (por ejemplo, consultar "ALERTA") y así validar la integración con el backend.
+- **Mensajes por tipo**: Resumen claro sobre las proporciones de mensajes según su categoría, facilitando su monitoreo global.
+
+Este Dashboard está integrado en la interfaz gráfica principal y permite verificar que el flujo end-to-end con RabbitMQ esté funcionando sin inconvenientes.
+
 ## Apagado
 
 Para detener todos los servicios y la infraestructura:
