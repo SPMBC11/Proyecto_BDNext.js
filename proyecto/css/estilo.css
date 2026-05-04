@@ -1,0 +1,465 @@
+@font-face {
+    font-family:        fuente_delgada;
+    font-style:         normal;
+    font-weight:        normal;
+    src:                url('../ttf/Antonio-Regular.ttf');
+}
+@font-face {
+    font-family:        fuente_regular;
+    font-style:         normal;
+    font-weight:        normal;
+    src:                local('Trebuchet MS');
+}
+@font-face {
+    font-family:        fuente_decorativa;
+    font-style:         normal;
+    font-weight:        normal;
+    src:                url('../ttf/dreamporp.ttf');
+}
+
+/* ===================================================
+   BASE GLOBAL
+   =================================================== */
+body {
+    padding:            0;
+    margin:             0;
+    min-height:         100vh;
+    text-align:         center;
+    background:         linear-gradient(to top right, navy, blue, cyan);
+    font-family:        fuente_decorativa;
+}
+body * {
+    font-family:        fuente_regular;
+}
+
+/* ESTRUCTURA PRINCIPAL (pagina_principal.php, admin.html) */
+body > header {
+    background:         cyan;
+    border-radius:      15px 15px 0px 0px;
+    padding:            15px;
+    font-size:          2em;
+    margin:             10px 15% 0 15%;
+    font-family:        fuente_decorativa;
+}
+body > main {
+    background:         white;
+    border-radius:      0px 0px 15px 15px;
+    padding:            25px;
+    margin:             0 15%;
+    text-align:         left;
+}
+body > footer {
+    margin:             0 15%;
+    text-align:         center;
+}
+body > footer * {
+    display:            inline-block;
+    background:         white;
+    margin:             5px;
+    margin-top:         0;
+    border-radius:      0 0 5px 5px;
+    padding:            5px;
+}
+
+/* ===================================================
+   PAGINA PRINCIPAL - Botones de menú rol
+   =================================================== */
+.MENU_OPCIONES {
+    text-align:         center;
+    margin:             15px 0;
+}
+.MENU_OPCIONES button {
+    height:             100px;
+    width:              100px;
+    margin:             10px;
+    font-size:          1em;
+    font-weight:        bold;
+    background:         white;
+    color:              navy;
+    border:             3px solid navy;
+    border-radius:      8px;
+    cursor:             pointer;
+}
+.MENU_OPCIONES button:hover {
+    background:         navy;
+    color:              cyan;
+}
+
+/* Links y submit de la pagina principal */
+a, input[type=submit] {
+    display:            inline-block;
+    background:         white;
+    color:              navy;
+    font-size:          1.5em;
+    margin:             15px;
+    border:             3px solid black;
+    padding:            15px;
+    border-radius:      5px;
+    text-decoration:    none;
+}
+a.PESTANHA {
+    background:         navy;
+    color:              cyan;
+    font-size:          1em;
+    border:             0px;
+    border-bottom:      1px solid navy;
+    border-radius:      15px 15px 0px 0px;
+    margin-bottom:      0px;
+}
+a.ACTIVA {
+    background:         white;
+    color:              navy;
+    border-bottom:      0px;
+    font-size:          1.3em;
+}
+
+/* ===================================================
+   PLATOS - Menu del restaurante
+   =================================================== */
+.SECCION {
+    display:            inline-block;
+    margin:             10px;
+    border:             3px solid grey;
+    border-radius:      10px;
+    padding:            5px;
+    vertical-align:     top;
+}
+.PLATO {
+    text-align:         center;
+    border-bottom:      1px dotted black;
+}
+.PLATO .TIPO {
+    display:            inline-block;
+    text-align:         left;
+    width:              145px;
+}
+.PLATO .NOMBRE {
+    display:            inline-block;
+    text-align:         left;
+    width:              145px;
+    vertical-align:     middle;
+}
+.PLATO .DESCRIPCION {
+    display:            inline-block;
+    text-align:         left;
+    width:              145px;
+    font-size:          small;
+    vertical-align:     middle;
+}
+.PLATO .PRECIO {
+    font-size:          1.2em;
+    vertical-align:     middle;
+    margin-left:        35px;
+}
+
+/* ===================================================
+   PANELES DE ROL (Mesero, Maitre, Cocina, Admin)
+   Los paneles usan una estructura propia sin el margin 15%
+   =================================================== */
+
+/* Wrapper para paneles de rol */
+.panel-wrapper {
+    max-width:          1200px;
+    margin:             20px auto;
+    padding:            0 20px;
+    text-align:         left;
+}
+
+/* Header de panel */
+.panel-header {
+    background:         cyan;
+    color:              navy;
+    border-radius:      15px 15px 0 0;
+    padding:            16px 24px;
+    display:            flex;
+    align-items:        center;
+    justify-content:    space-between;
+    flex-wrap:          wrap;
+    gap:                10px;
+}
+.panel-header h1 {
+    font-family:        fuente_decorativa;
+    font-size:          1.8em;
+    margin:             0;
+    color:              navy;
+}
+.panel-header .btn-volver {
+    background:         navy;
+    color:              cyan;
+    padding:            8px 16px;
+    border-radius:      6px;
+    text-decoration:    none;
+    font-weight:        bold;
+    font-size:          0.9em;
+    border:             none;
+    cursor:             pointer;
+    transition:         opacity 0.2s;
+}
+.panel-header .btn-volver:hover { opacity: 0.8; }
+
+/* Contenido del panel */
+.panel-body {
+    background:         white;
+    border-radius:      0 0 15px 15px;
+    padding:            24px;
+}
+
+/* Footer de panel */
+.panel-footer {
+    text-align:         center;
+    margin-top:         6px;
+}
+.panel-footer span {
+    display:            inline-block;
+    background:         white;
+    padding:            5px 12px;
+    border-radius:      0 0 8px 8px;
+    font-size:          0.85em;
+    color:              navy;
+    margin:             0 4px;
+}
+
+/* ===================================================
+   MENSAJES DE ALERTA DEL PANEL
+   =================================================== */
+.panel-alerta {
+    padding:            12px 16px;
+    border-radius:      6px;
+    margin-bottom:      16px;
+    font-weight:        bold;
+    font-size:          0.95em;
+    border:             1px solid;
+}
+.panel-alerta.ok   { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+.panel-alerta.err  { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+.panel-alerta.warn { background: #fff3cd; color: #664d03; border-color: #ffc107; }
+
+/* ===================================================
+   TARJETAS / CARDS
+   =================================================== */
+.panel-card {
+    background:         #f8faff;
+    border:             1px solid #c8d6f0;
+    border-radius:      10px;
+    padding:            20px;
+    margin-bottom:      20px;
+    box-shadow:         0 2px 8px rgba(0,0,128,0.07);
+}
+.panel-card.listo    { border-left: 6px solid #28a745; }
+.panel-card.cocina   { border-left: 6px solid #ffc107; }
+.panel-card.peligro  { border-left: 6px solid #dc3545; }
+
+.panel-card h3 {
+    font-size:          1.05em;
+    font-weight:        bold;
+    color:              navy;
+    margin:             0 0 14px 0;
+    padding-bottom:     8px;
+    border-bottom:      2px solid #dde4f0;
+}
+
+/* ===================================================
+   LAYOUT DE 2 COLUMNAS
+   =================================================== */
+.panel-layout {
+    display:            flex;
+    gap:                20px;
+    align-items:        flex-start;
+    flex-wrap:          wrap;
+}
+.panel-col-1 { flex: 1; min-width: 260px; }
+.panel-col-2 { flex: 2; min-width: 320px; }
+
+/* ===================================================
+   FORMULARIOS EN PANELES
+   =================================================== */
+.form-grupo {
+    margin-bottom:      13px;
+}
+.form-grupo label {
+    display:            block;
+    font-weight:        bold;
+    color:              navy;
+    margin-bottom:      4px;
+    font-size:          0.9em;
+}
+.form-grupo select,
+.form-grupo input[type=number],
+.form-grupo input[type=date],
+.form-grupo input[type=time],
+.form-grupo input[type=text] {
+    display:            block;
+    width:              100%;
+    padding:            8px 10px;
+    border:             1px solid #b0bcd0;
+    border-radius:      5px;
+    font-size:          0.95em;
+    background:         white;
+    color:              #333;
+    box-sizing:         border-box;
+}
+.btn-primario {
+    display:            block;
+    width:              100%;
+    padding:            10px;
+    background:         navy;
+    color:              cyan;
+    border:             none;
+    border-radius:      6px;
+    font-size:          1em;
+    font-weight:        bold;
+    cursor:             pointer;
+    margin-top:         8px;
+    transition:         background 0.2s;
+    font-family:        fuente_decorativa;
+}
+.btn-primario:hover { background: #003388; }
+.btn-secundario {
+    display:            block;
+    width:              100%;
+    padding:            10px;
+    background:         #eee;
+    color:              #333;
+    border:             1px solid #ccc;
+    border-radius:      6px;
+    font-size:          1em;
+    cursor:             pointer;
+    margin-top:         8px;
+}
+
+/* Formulario inline (mesero: tomar pedido) */
+.form-inline {
+    display:            flex;
+    flex-wrap:          wrap;
+    gap:                10px;
+    align-items:        flex-end;
+}
+.form-inline .form-grupo { margin-bottom: 0; flex: 1; min-width: 160px; }
+.form-inline .form-grupo.corto { flex: 0 0 80px; }
+
+/* ===================================================
+   BOTONES DE ACCION (tabla)
+   =================================================== */
+.btn-accion {
+    display:            inline-block;
+    padding:            5px 10px;
+    border-radius:      5px;
+    font-size:          0.82em;
+    font-weight:        bold;
+    text-decoration:    none;
+    border:             none;
+    cursor:             pointer;
+    margin:             2px;
+    transition:         opacity 0.15s;
+    font-family:        fuente_regular;
+}
+.btn-accion:hover { opacity: 0.82; }
+.btn-sentar   { background: #28a745; color: white; }
+.btn-liberar  { background: #ffc107; color: #333;  }
+.btn-editar   { background: #0069d9; color: white; }
+.btn-cancelar { background: #dc3545; color: white; }
+.btn-entregar { background: #007bff; color: white; }
+.btn-listo    { background: #28a745; color: white; display: block; width: 100%; padding: 10px; margin-top: 12px; text-align: center; border-radius: 5px; }
+.btn-enviar   { background: #444;    color: white; padding: 8px 18px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+.btn-enviar:hover { background: #222; }
+
+/* ===================================================
+   TABLAS DE PANEL
+   =================================================== */
+.panel-tabla {
+    width:              100%;
+    border-collapse:    collapse;
+    font-size:          0.93em;
+}
+.panel-tabla th {
+    background:         navy;
+    color:              white;
+    padding:            10px 12px;
+    text-align:         left;
+    font-weight:        bold;
+}
+.panel-tabla td {
+    padding:            10px 12px;
+    border-bottom:      1px solid #dde4f0;
+    vertical-align:     middle;
+}
+.panel-tabla tr:hover td { background: #f0f4ff; }
+.panel-tabla td.vacio {
+    text-align:         center;
+    color:              #888;
+    font-style:         italic;
+    padding:            20px;
+}
+
+/* ===================================================
+   BADGES DE ESTADO
+   =================================================== */
+.estado-badge {
+    display:            inline-block;
+    padding:            3px 9px;
+    border-radius:      12px;
+    font-size:          0.8em;
+    font-weight:        bold;
+}
+.estado-reservada { background: #cfe2ff; color: #0a58ca; }
+.estado-ocupada   { background: #f8d7da; color: #842029; }
+.estado-liberada  { background: #d1e7dd; color: #0f5132; }
+.estado-cancelada { background: #e2e3e5; color: #495057; }
+
+/* Status de ordenes */
+.status-1 { color: #d39e00; font-weight: bold; }
+.status-2 { color: #28a745; font-weight: bold; }
+
+/* ===================================================
+   PANEL DE COCINA - COMANDAS
+   =================================================== */
+.cocina-grid {
+    display:            grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap:                20px;
+}
+.comanda-card {
+    background:         white;
+    border-left:        8px solid #dc3545;
+    border-radius:      8px;
+    padding:            18px;
+    box-shadow:         0 3px 12px rgba(0,0,0,0.12);
+}
+.comanda-card .comanda-plato {
+    font-size:          1.3em;
+    font-weight:        bold;
+    color:              #1a1a1a;
+    line-height:        1.3;
+}
+.comanda-card .comanda-tiempo {
+    color:              #dc3545;
+    font-weight:        bold;
+    font-size:          1.1em;
+    margin-top:         6px;
+}
+.comanda-card .comanda-meta {
+    font-size:          0.83em;
+    color:              #555;
+    margin-top:         10px;
+    border-top:         1px dashed #ccc;
+    padding-top:        8px;
+}
+.comanda-vacia {
+    grid-column:        1 / -1;
+    text-align:         center;
+    font-size:          1.3em;
+    color:              #28a745;
+    padding:            40px 0;
+    font-weight:        bold;
+}
+
+/* ===================================================
+   RESPONSIVE
+   =================================================== */
+@media (max-width: 768px) {
+    body > header,
+    body > main,
+    body > footer { margin-left: 5%; margin-right: 5%; }
+    .panel-layout { flex-direction: column; }
+    .panel-wrapper { padding: 0 10px; }
+}
